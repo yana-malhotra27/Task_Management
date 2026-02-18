@@ -17,10 +17,14 @@ app.use(expressLayout);
 app.set('layout', 'layouts/main');
 app.set('view engine', 'ejs');
 
-//home
-app.get('/', (req, res) => {
-  res.render('index');
+//Routes
+app.use('/', require('./server/routes/user'));
+
+//404
+app.use((req, res) => {
+  res.status(404).json({ message: "Route not found" });
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
