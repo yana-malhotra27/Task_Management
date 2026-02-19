@@ -1,30 +1,79 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1>Tasks Dashboard</h1>
-  <a href="/add" class="btn btn-primary">Add Task</a>
+<div class="container py-4">
+
+  <!-- Header & Stats -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 text-white">Tasks Dashboard</h1>
+    <a href="/add" class="btn btn-success btn-lg shadow-sm">
+      <i class="bi bi-plus-circle me-1"></i> Add Task
+    </a>
+  </div>
+
+  <!-- Stats -->
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <div class="card text-white bg-primary shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Total Tasks</h5>
+          <h2 class="card-text"><%= tasks.length %></h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-success shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Completed Tasks</h5>
+          <h2 class="card-text">
+            <%= tasks.filter(task => task.status === 'Completed').length %>
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-white bg-warning shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Pending Tasks</h5>
+          <h2 class="card-text">
+            <%= tasks.filter(task => task.status === 'Pending').length %>
+          </h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search -->
+  <input type="text" id="searchTask" class="form-control form-control-lg shadow-sm mb-4"
+         placeholder="Search tasks by title..." onkeyup="searchTasks()">
+
+  <!-- Task Cards -->
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="taskContainer">
+  <% tasks.forEach(task => { %>
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title mb-2"><%= task.title %></h5>
+          <p class="card-text flex-grow-1"><%= task.description || "No description" %></p>
+        </div>
+
+        <div class="card-footer bg-white d-flex justify-content-between align-items-center border-0 pt-0">
+          <span class="badge <%= task.status === 'Completed' ? 'bg-success' : 'bg-warning text-dark' %>">
+            <%= task.status %>
+          </span>
+          <div class="d-flex gap-2">
+            <a href="/edit/<%= task._id %>" class="btn btn-sm btn-outline-primary">Edit</a>
+            <a href="/delete/<%= task._id %>" class="btn btn-sm btn-outline-danger">Delete</a>
+          </div>
+        </div>
+
+        <div class="card-footer bg-white text-muted text-end small border-0 pt-1">
+          <% if (task.updatedAt && task.updatedAt > task.createdAt) { %>
+            Updated: <%= task.updatedAt.toLocaleString() %>
+          <% } else { %>
+            Created: <%= task.createdAt.toLocaleString() %>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  <% }) %>
 </div>
 
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th>Created At</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% tasks.forEach(task => { %>
-      <tr>
-        <td><%= task.title %></td>
-        <td><%= task.description %></td>
-        <td><%= task.status %></td>
-        <td><%= task.createdAt.toLocaleString() %></td>
-        <td>
-          <a href="/edit/<%= task._id %>" class="btn btn-sm btn-warning">Edit</a>
-          <a href="/delete/<%= task._id %>" class="btn btn-sm btn-danger">Delete</a>
-        </td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
+</div>

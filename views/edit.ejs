@@ -1,26 +1,40 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-  <h1>Edit Task</h1>
-  <a href="/" class="btn btn-secondary">Back</a>
+<div class="container py-4">
+
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 text-white">Edit Task</h1>
+    <a href="/" class="btn btn-secondary btn-lg shadow-sm">
+      <i class="bi bi-arrow-left-circle me-1"></i> Back
+    </a>
+  </div>
+
+  <!-- Form Card -->
+  <div class="card shadow-sm border-0 rounded-4 p-4 bg-dark text-white">
+    <form action="/edit/<%= task._id %>" method="post">
+      
+      <div class="mb-3">
+        <label class="form-label">Task Title</label>
+        <input type="text" class="form-control form-control" name="title" value="<%= task.title %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Task Description</label>
+        <textarea class="form-control form-control" name="description" rows="4"><%= task.description %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select class="form-select form-select-dark" name="status">
+          <option value="Pending" <%= task.status === 'Pending' ? 'selected' : '' %>>Pending</option>
+          <option value="Completed" <%= task.status === 'Completed' ? 'selected' : '' %>>Completed</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-success shadow-sm">
+        <i class="bi bi-check-circle me-1"></i> Update Task
+      </button>
+
+    </form>
+  </div>
+
 </div>
-
-<form action="/edit/<%= task._id %>" method="post">
-  <div class="mb-3">
-    <label class="form-label">Task Title</label>
-    <input type="text" class="form-control" name="title" value="<%= task.title %>" required>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">Task Description</label>
-    <textarea class="form-control" name="description" rows="4"><%= task.description %></textarea>
-  </div>
-
-  <div class="mb-3">
-    <label class="form-label">Status</label>
-    <select class="form-select" name="status">
-      <option value="Pending" <%= task.status === 'Pending' ? 'selected' : '' %>>Pending</option>
-      <option value="Completed" <%= task.status === 'Completed' ? 'selected' : '' %>>Completed</option>
-    </select>
-  </div>
-
-  <button type="submit" class="btn btn-success">Update Task</button>
-</form>
