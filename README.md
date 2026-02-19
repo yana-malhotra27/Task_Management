@@ -100,3 +100,6 @@ Task_Management/
 | PUT | `/api/tasks/:id` | Update task via API |
 | DELETE | `/api/tasks/:id` | Delete task via API |
 
+## 🎥 Demo
+
+![App Demo](sample.gif)

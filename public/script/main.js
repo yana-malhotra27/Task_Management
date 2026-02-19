@@ -1,6 +1,6 @@
 function searchTasks() {
     const input = document.getElementById('searchTask').value.toLowerCase();
-    const cards = document.querySelectorAll('.task-card');
+    const cards = document.querySelectorAll('.task-card .col');
 
     cards.forEach(card => {
       const title = card.querySelector('.card-title').innerText.toLowerCase();
