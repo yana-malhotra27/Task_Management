@@ -1,4 +1,4 @@
-"# Task Management App
+# Task Management App
 
 A full-stack web application for managing tasks with a clean and intuitive user interface. Built with Node.js, Express, and MongoDB.
 
