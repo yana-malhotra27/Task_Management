@@ -6,30 +6,24 @@ const connectDB = require('./server/config/db');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Connect to MongoDB
 connectDB();
 
 //forms
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 //static files
 app.use(express.static('public'));
 
-//template engine
 app.use(expressLayout);
 app.set('layout', 'layouts/main');
 app.set('view engine', 'ejs');
 
-//Routes
-app.use('/', require('./server/routes/user'));
+// routes view
+app.use('/', require('./server/routes/viewRoutes'));
 
-//404
-app.use((req, res) => {
-  res.status(404).json({ message: "Route not found" });
-});
-
+// routes api
+app.use('/api/tasks', require('./server/routes/apiRoutes'));
 
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log(`Server running on port ${port}`);
 });
